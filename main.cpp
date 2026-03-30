@@ -90,6 +90,40 @@ bool test8()
 {
   vector< int > v(2, 0);
   vector< int > v
+}
+
+bool test9()
+{
+
+}
+
+bool test10() {
+  Vector< int > v(2, 0);
+  Vector< int > yav(3, 1);
+
+  Vector< int > cpy_v(v);
+  Vector< int > cpy_yav(yav);
+  v.swap(yav);
+
+  return cpy_v == cpy_yav && cpy_yav == cpy_v;
+}
+
+bool test11() {
+  Vector< int > v(2, 0);
+  Vector< int > cpy_v(v);
+
+  Vector< int > yav = std::move(v);
+  return yav = cpy_v;
+}
+
+bool test12() {
+  Vector< int > v(2, 0);
+  Vector< int > cpy(v);
+  Vector< int > yav;
+
+  yav = std::move(v);
+  return yav == cpy;
+}
 
 int main()
 {
@@ -102,8 +136,12 @@ int main()
     { test4, "In range access does not generate exceptions" },
     { test5, "Out of range access generates exceptions" },
     { test6, "const: In range access does not generate exceptions" },
-    { test7, "const: Out of range access generates exceptions" }
-
+    { test7, "const: Out of range access generates exceptions" },
+    { test8, "Copy constructor" },
+    { test9, "Copy assigment operator" },
+    { test10, "Swap for two vectors" },
+    { test11, "Move constructor" },
+    { test12, "Move assigment operator" },
   };
   size_t count = sizeof(tests) / sizeof(case_t);
   std::cout << std::boolalpha;
